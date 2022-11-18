@@ -1,0 +1,67 @@
+﻿@page "/ContactoDetalles"
+@using Services
+@using Shared
+
+@inject IContactoService ContactoService
+
+@if (contacto == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <EditForm Model="contacto">
+        <div class="card">
+            <h5 class="card-header">Detalle de Contacto</h5>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="">Nombres</label>
+                            <InputText class="form-control" @bind-Value="@contacto.Nombres" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="">Nombres</label>
+                            <InputText class="form-control" @bind-Value="@contacto.Apellido" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="">Celular</label>
+                            <InputText class="form-control" @bind-Value="@contacto.Celular" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="">Dirección</label>
+                            <InputTextArea class="form-control" @bind-Value="@contacto.Dirección" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <input type="submit" class="btn btn-success" value="Guardar" />
+                            <input type="button" class="btn btn-secondary" value="Cancelar" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+
+
+
+
+@code {
+
+    public ContactoDetalles contacto;
+
+}

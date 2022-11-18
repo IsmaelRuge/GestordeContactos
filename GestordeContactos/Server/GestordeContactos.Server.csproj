@@ -6,15 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.17" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ContactosRepositorios\ContactosRepositorios.csproj" />
     <ProjectReference Include="..\Client\GestordeContactos.Client.csproj" />
     <ProjectReference Include="..\Shared\GestordeContactos.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 
