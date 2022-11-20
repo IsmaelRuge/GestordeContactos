@@ -1,8 +1,7 @@
 ﻿@page "/ContactoDetalles"
-@using Services
-@using Shared
 
 @inject IContactoService ContactoService
+@inject NavigationManager NavigationManager
 
 @if (contacto == null)
 {
@@ -10,7 +9,7 @@
 }
 else
 {
-    <EditForm Model="contacto">
+    <EditForm Model="contacto" OnValidSubmit="Guardar">
         <div class="card">
             <h5 class="card-header">Detalle de Contacto</h5>
             <div class="card-body">
@@ -18,10 +17,10 @@ else
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="">Nombres</label>
-                            <InputText class="form-control" @bind-Value="@contacto.Nombres" />
+                            <InputText class="form-control" @bind-Value="@contacto.Nombre" />
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="">Nombres</label>
+                            <label for="">Apellidos</label>
                             <InputText class="form-control" @bind-Value="@contacto.Apellido" />
                         </div>
                     </div>
@@ -45,11 +44,12 @@ else
                         </div>
                         <div class="col-md-4 mb-3">
                             <input type="submit" class="btn btn-success" value="Guardar" />
-                            <input type="button" class="btn btn-secondary" value="Cancelar" />
+                            <input type="button" class="btn btn-secondary" value="Cancelar" @onclick="NavegarInicio" />
                         </div>
                         <div class="col-md-4 mb-3">
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -62,6 +62,22 @@ else
 
 @code {
 
-    public ContactoDetalles contacto;
+    public Contacto contacto;
+
+    protected async override Task OnInitializedAsync()
+    {
+        contacto = new Contacto();
+    }
+
+    protected async Task Guardar()
+    {
+        await ContactoService.GuardarContacto(contacto);
+        NavegarInicio();
+    }
+
+    private void NavegarInicio()
+    {
+        NavigationManager.NavigateTo("/");
+    }
 
 }

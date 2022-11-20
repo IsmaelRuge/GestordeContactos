@@ -1,7 +1,57 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@inject IContactoService ContactoService
+@inject NavigationManager NavigationManager
 
-Welcome to your new app.
+<h3>Contactos</h3>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@Mensage
+
+@if (contacto == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Nombre Completo</td>
+                <td>Celular</td>
+                <td>Dirección</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in contacto)
+            {
+            <tr>
+                <td>@i.NombreCompleto</td>
+                <td>@i.Celular</td>
+                <td>@i.Dirección</td>
+                <td></td>
+                <td></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code{
+    IEnumerable<Contacto> contacto;
+    public string Mensage { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        try
+        {
+            contacto = await ContactoService.GetAll();
+        }
+        catch (Exception e)
+        {
+            Mensage = "Error..." + e.Message;
+        }
+    }
+}

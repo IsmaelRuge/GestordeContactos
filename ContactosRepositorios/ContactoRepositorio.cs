@@ -49,21 +49,21 @@ namespace ContactosRepositorios
 
         public async Task EliminarContacto(int id)
         {
-            var sql = @"DELETE FROM WHERE Id = @Id";
+            var sql = @"DELETE FROM Contactos WHERE Id = @Id";
 
             var result = await _dbConnection.ExecuteAsync(sql, new { Id = id });
         }
 
         public async Task<IEnumerable<Contacto>> GetAll()
         {
-            var sql = @" SELECT * FROM ContactosDB";
+            var sql = @" SELECT * FROM Contactos";
 
             return await _dbConnection.QueryAsync<Contacto>(sql, new { });
         }
 
         public async Task<Contacto> GetDetalles(int id)
         {
-            var sql = @" SELECT * FROM ContactosDB WHERE Id = @Id";
+            var sql = @" SELECT * FROM Contactos WHERE Id = @Id";
 
             return await _dbConnection.QueryFirstAsync<Contacto>(
                 sql, new { Id = id });
