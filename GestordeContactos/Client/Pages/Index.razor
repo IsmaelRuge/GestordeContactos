@@ -7,35 +7,37 @@
 
 @Mensage
 
+<table class="table">
+    <tbody>
+        <tr>
+            <td colspan="2"><a href="ContactoDetalles">Agregar Contacto</a></td>
+        </tr>
+    </tbody>
+</table>
+
 @if (contacto == null)
 {
     <p><em>Cargando...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <td>Nombre Completo</td>
-                <td>Celular</td>
-                <td>Dirección</td>
-                <td></td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var i in contacto)
-            {
-            <tr>
-                <td>@i.NombreCompleto</td>
-                <td>@i.Celular</td>
-                <td>@i.Dirección</td>
-                <td></td>
-                <td></td>
-            </tr>
-            }
-        </tbody>
-    </table>
+    <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="4" AllowSorting="true" Data="@contacto" TItem="Contacto" ColumnWidth="200px">
+        <Columns>
+            <RadzenGridColumn TItem="Contacto" Property="NombreCompleto" Title="Nombre" />
+            <RadzenGridColumn TItem="Contacto" Property="Celular" Title="Celular" />
+            <RadzenGridColumn TItem="Contacto" Property="Dirección" Title="Dirección" />
+            <RadzenGridColumn TItem="Contacto" Title="Editar">
+                <Template Context="data">
+                    <RadzenLink Path="@($"/ContactoDetalles/{data.Id}")" Text="Editar"></RadzenLink>
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Contacto" Title="Eliminar">
+                <Template Context="data">
+                    <RadzenLink Path="@($"/ContactoEliminar/{data.Id}")" Text="Eliminar"></RadzenLink>
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
 }
 
 

@@ -1,5 +1,4 @@
-﻿@page "/ContactoDetalles"
-@page "/ContactoDetalles/{id:int}"
+﻿@page "/ContactoEliminar/{id:int}"
 
 @inject IContactoService ContactoService
 @inject NavigationManager NavigationManager
@@ -45,7 +44,7 @@ else
                             <div class="col-md-4 mb-3">
                             </div>
                             <div class="col-md-4 mb-3">
-                                <RadzenButton Text="Guardar" ButtonStyle="ButtonStyle.Primary" Click="@(args => Guardar())" />
+                                <RadzenButton Text="Eliminar" ButtonStyle="ButtonStyle.Danger" Click="@(args => Eliminar())" />
                                 <RadzenButton Text="Cancelar" ButtonStyle="ButtonStyle.Secondary" Click="@(args => NavegarInicio())" />
                             </div>
                             <div class="col-md-4 mb-3">
@@ -72,19 +71,12 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        if (id == 0)
-        {
-            contacto = new Contacto();
-        }
-        else
-        {
-            contacto = await ContactoService.GetDetalles(id);
-        }
+        contacto = await ContactoService.GetDetalles(id);
     }
 
-    protected async Task Guardar()
+    protected async Task Eliminar()
     {
-        await ContactoService.GuardarContacto(contacto);
+        await ContactoService.EliminarContacto(id);
         NavegarInicio();
     }
 
